@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *
  * @author 1styrGroupB
  */
-public class Window {
+public class Windows {
     
     private long window;
     

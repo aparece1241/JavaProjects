@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameProject.Tutorial_Game_Engine_Creation.newpackage;
+package GameProject.Tutorial_Game_Engine_Creation;
 
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import org.lwjgl.opengl.GL45;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  *
@@ -16,6 +22,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 public class Window {
     private int width,height;
     private String title;
+    private long glfwindow;
     
     private static Window window = null;
     private Window(){
@@ -47,11 +54,30 @@ public class Window {
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE,GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_MAXIMIZED,GLFW.GLFW_TRUE);
         
-        long window = GLFW.glfwCreateWindow(width, height, title, width, width);
+        glfwindow = GLFW.glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         
+        if(glfwindow == NULL){
+            throw new IllegalStateException("Failed to create  GLFW window.");
+        }
+        //create current context
+        GLFW.glfwMakeContextCurrent(glfwindow);
+        
+        GLFW.glfwShowWindow(glfwindow);
+        
+        GLFW.glfwSwapInterval(1);
+        // very import for us to use data bindings and etc.
+        GL.createCapabilities();
     }
     public void loop(){
-        
+        while(!GLFW.glfwWindowShouldClose(glfwindow)){
+            //poll events
+            GLFW.glfwPollEvents();
+            
+            glClearColor(1,0,0,0);
+            glClear(GL11.GL_COLOR_BUFFER_BIT);
+            GLFW.glfwSwapBuffers(glfwindow);
+            
+        }
     }
 
 }//GamesWithGabe tutorial
