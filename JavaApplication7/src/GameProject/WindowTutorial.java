@@ -19,7 +19,6 @@ public class WindowTutorial {
             System.exit(1);
         }
         long window = glfwCreateWindow(600,600, "Hello World", 0, 0);
-        
         glfwShowWindow(window);
         
         glfwMakeContextCurrent(window);
@@ -29,7 +28,7 @@ public class WindowTutorial {
         glEnable(GL_TEXTURE_2D);
         
         
-        glClearColor(0, 1, 0,0);
+        glClearColor(Color.Cyan().r, Color.Cyan().g, Color.Cyan().b,0);
         while(glfwWindowShouldClose(window) != true){
             glfwGetKey(window, GL_S);
             if(glfwGetKey(window, GLFW_KEY_A) == 1){
