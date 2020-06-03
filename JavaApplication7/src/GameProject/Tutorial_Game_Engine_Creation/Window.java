@@ -5,6 +5,7 @@
  */
 package GameProject.Tutorial_Game_Engine_Creation;
 
+import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -40,6 +41,13 @@ public class Window {
     public void run(){
         init();
         loop();
+        
+        Callbacks.glfwFreeCallbacks(glfwindow);
+        GLFW.glfwDestroyWindow(glfwindow);
+        
+        
+        GLFW.glfwTerminate();
+        GLFW.glfwSetErrorCallback(null).free();
     }
     
     public void init(){
@@ -51,7 +59,7 @@ public class Window {
         
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE,GLFW.GLFW_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE,GLFW.GLFW_FALSE);
+        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE,GLFW.GLFW_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_MAXIMIZED,GLFW.GLFW_TRUE);
         
         glfwindow = GLFW.glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
