@@ -67,6 +67,11 @@ public class Window {
         if(glfwindow == NULL){
             throw new IllegalStateException("Failed to create  GLFW window.");
         }
+        
+        GLFW.glfwSetMouseButtonCallback(glfwindow,MouseEventListener::mouse_button_callback);
+        GLFW.glfwSetScrollCallback(glfwindow, MouseEventListener::scroll_back);
+        GLFW.glfwSetCursorPosCallback(glfwindow, MouseEventListener::cursor_position_callback);
+        GLFW.glfwSetKeyCallback(glfwindow, KeyEventListener::key_callback);
         //create current context
         GLFW.glfwMakeContextCurrent(glfwindow);
         
@@ -88,4 +93,4 @@ public class Window {
         }
     }
 
-}//GamesWithGabe tutorial
+}//GamesWithGabe https://www.youtube.com/watch?v=gYhEknnKFJY&list=PLtrSb4XxIVbp8AKuEAlwNXDxr99e3woGE&index=4
