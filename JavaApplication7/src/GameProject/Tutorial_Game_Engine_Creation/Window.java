@@ -5,6 +5,7 @@
  */
 package GameProject.Tutorial_Game_Engine_Creation;
 
+import Util.Time;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.glfwInit;
@@ -24,12 +25,18 @@ public class Window {
     private int width,height;
     private String title;
     private long glfwindow;
+    private boolean fadeToBlack = false;
+    private float r,g,b,a;
     
     private static Window window = null;
     private Window(){
         this.width = 1280;
-        this.height = 800;
+        this.height = 700;
         this.title = "Game Window";
+        this.r = 1.0f;
+        this.g = 1.0f;
+        this.b = 0.0f;
+        this.a = 1.0f;
     }
     public static Window get(){
         if(Window.window == null){
@@ -60,7 +67,7 @@ public class Window {
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE,GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE,GLFW.GLFW_TRUE);
-        GLFW.glfwWindowHint(GLFW.GLFW_MAXIMIZED,GLFW.GLFW_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_MAXIMIZED,GLFW.GLFW_FALSE);
         
         glfwindow = GLFW.glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         
@@ -82,14 +89,30 @@ public class Window {
         GL.createCapabilities();
     }
     public void loop(){
+        float beginTime = Time.getTime();
+        float endTime = Time.getTime();
+        
         while(!GLFW.glfwWindowShouldClose(glfwindow)){
             //poll events
             GLFW.glfwPollEvents();
             
-            glClearColor(1,0,0,0);
+//            if(fadeToBlack){
+//                this.r = Math.max(r - 0.1f,0.0f);
+//                this.g = Math.max(g - 0.1f,0.0f);
+//                this.b = Math.max(b - 0.1f,0.0f);
+//            }
+            
+//            if(KeyEventListener.getKeypress(GLFW.GLFW_KEY_SPACE)){
+//                this.fadeToBlack = true;
+//            }
+//            
+            glClearColor(r,g,b,a);
             glClear(GL11.GL_COLOR_BUFFER_BIT);
             GLFW.glfwSwapBuffers(glfwindow);
             
+            endTime = Time.getTime();
+            float dt = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 
