@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package GameProject.Tutorial_Game_Engine_Creation;
 
 /**
  *
  * @author 1styrGroupB
  */
-public class Time {
-    public static float timeStarted = System.nanoTime();
+public abstract class Scene {
     
-    public static float getTime(){
-        return (float)((timeStarted - System.nanoTime())*1E-9);
+    public Scene(){
+        
     }
+     public abstract void update(int delta_time);
 }

@@ -111,7 +111,7 @@ public class Window {
             GLFW.glfwSwapBuffers(glfwindow);
             
             endTime = Time.getTime();
-            float dt = endTime - beginTime;
+            float delta_time = endTime - beginTime;
             beginTime = endTime;
         }
     }
