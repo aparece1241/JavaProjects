@@ -25,8 +25,8 @@ public class Window {
     private int width,height;
     private String title;
     private long glfwindow;
-    private boolean fadeToBlack = false;
-    private float r,g,b,a;
+    public float r,g,b,a;
+    private static Scene currentScene = null;
     
     private static Window window = null;
     private Window(){
@@ -35,7 +35,7 @@ public class Window {
         this.title = "Game Window";
         this.r = 1.0f;
         this.g = 1.0f;
-        this.b = 0.0f;
+        this.b = 1.0f;
         this.a = 1.0f;
     }
     public static Window get(){
@@ -43,6 +43,22 @@ public class Window {
             Window.window = new Window();
         }
         return Window.window;
+    }
+    
+    public static void changeScene(int newScene){
+        switch(newScene){
+            case 0:
+                System.out.println(true);
+                currentScene = new LevelEditorScene();
+                //currentScene.init();
+                break;
+            case 1:
+                currentScene = new LevelScene();
+                break;
+            default:
+                assert false: "Unknown Scene '" + newScene + "'";
+                break;
+        }
     }
     
     public void run(){
@@ -87,33 +103,35 @@ public class Window {
         GLFW.glfwSwapInterval(1);
         // very import for us to use data bindings and etc.
         GL.createCapabilities();
+        
+        Window.changeScene(0);
     }
     public void loop(){
         float beginTime = Time.getTime();
-        float endTime = Time.getTime();
+        float endTime;
+        float delta_time = -1.0f;
         
         while(!GLFW.glfwWindowShouldClose(glfwindow)){
             //poll events
             GLFW.glfwPollEvents();
             
-//            if(fadeToBlack){
-//                this.r = Math.max(r - 0.1f,0.0f);
-//                this.g = Math.max(g - 0.1f,0.0f);
-//                this.b = Math.max(b - 0.1f,0.0f);
-//            }
             
-//            if(KeyEventListener.getKeypress(GLFW.GLFW_KEY_SPACE)){
-//                this.fadeToBlack = true;
-//            }
-//            
+            
+            if(delta_time >= 0){
+                System.out.println(delta_time);
+                currentScene.update(delta_time);
+            }
+            
             glClearColor(r,g,b,a);
             glClear(GL11.GL_COLOR_BUFFER_BIT);
             GLFW.glfwSwapBuffers(glfwindow);
             
             endTime = Time.getTime();
-            float delta_time = endTime - beginTime;
+            delta_time = endTime - beginTime;
             beginTime = endTime;
         }
     }
 
-}//GamesWithGabe https://www.youtube.com/watch?v=gYhEknnKFJY&list=PLtrSb4XxIVbp8AKuEAlwNXDxr99e3woGE&index=4
+}//GamesWithGabe https://www.youtube.com/watch?v=vnqb9vdaxwA&list=PLtrSb4XxIVbp8AKuEAlwNXDxr99e3woGE&index=6
+// https://learnopengl.com/Getting-started/Hello-Triangle
+

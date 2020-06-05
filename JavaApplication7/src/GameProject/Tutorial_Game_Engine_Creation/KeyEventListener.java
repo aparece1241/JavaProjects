@@ -27,7 +27,6 @@ public class KeyEventListener {
     }
     
     public static void key_callback(long window, int key, int scancode, int action, int mods){
-        System.out.println(key);
         if(action == GLFW.GLFW_PRESS){
             get().KeyPressed[key] = true;
         }else if(action == GLFW.GLFW_RELEASE){
@@ -38,7 +37,9 @@ public class KeyEventListener {
     public static boolean getKeypress(int keyCode){
         if(keyCode < get().KeyPressed.length){
             return get().KeyPressed[keyCode];
+            
         }
         return false;
+        
     }
 }
