@@ -1,12 +1,13 @@
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        genCards();
+        ArrayList<Card> cards = genCards();
         while(true) {
             menu();
-            if(processAction(in.nextLine())){
+            if(processAction(in.nextLine(),cards)){
                 break;
             }
         }
@@ -20,18 +21,20 @@ public class Main {
      * @return cards
      */
 
-    private static Object[] genCards(){
-        int index = 0;
-        Object[] cards = new Object[52];
-        String [] flowers = {"Spade","Heart","Clove","Diamond"};
-        String [] cardsProperties = {"2","3","4","5","6","7","8","9","10","A","J","Q","K"};
-        Object card = new Object();
-        for (String flower : flowers)
-        {
-            for (String cardsProperty : cardsProperties) {
-                card[flower] = cardsProperty;
+    private static ArrayList<Card> genCards(){
+        String ranks [] = {"2","3","4","5","6",
+                          "7","8","9","10","A",
+                          "J","Q","K"};
+        String suits [] = {"H","D","S","C"};
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        for ( String suit : suits) {
+            for( String rank : ranks){
+                Card card = new Card(rank,suit);
+                cards.add(card);
             }
         }
+
         return cards;
     }
 
@@ -56,11 +59,11 @@ public class Main {
      * process the user action
      * also call the functions
      * regarding the users action
-     * @param userAction
+     * @param userAction, cards
      * @return bol
      */
 
-    private static boolean processAction (String userAction)
+    private static boolean processAction (String userAction, ArrayList<Card> cards )
     {
         boolean end = false;
         userAction = userAction.toLowerCase();
@@ -80,7 +83,7 @@ public class Main {
             case "3":
             case "display":
                 //call the display function
-                System.out.println("Display");
+                displayCards(cards);
                 end = false;
                 break;
             case "4":
@@ -101,11 +104,23 @@ public class Main {
      *
      * @param cards
      */
-    private static void displayCards(Object cards){
-
-
+    private static void displayCards(ArrayList<Card> cards){
+        for(int ctr = 0; ctr < 52; ctr++){
+            System.out.println(cards.get(ctr).getCard()+" ");
+        }
     }
 
+    /**
+     * This function will shuffle the cards
+     *
+     * @params cards
+     */
+
+    private static ArrayList<Card> shuffleCards(ArrayList<Card> cards )
+    {
+        Collections.shuffle(cards);
+        return cards;
+    }
 
 
 }
