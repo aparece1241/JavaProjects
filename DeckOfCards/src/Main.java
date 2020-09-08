@@ -5,10 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         DeckOfCards deckOfCards = new DeckOfCards();
-        ArrayList<Card> cards = deckOfCards.genCards();
+        deckOfCards.createCards();
         while(true) {
             deckOfCards.menu();
-            if(deckOfCards.processAction(in.nextLine(),cards)){
+            if(deckOfCards.processAction(in.nextLine())){
                 break;
             }
         }

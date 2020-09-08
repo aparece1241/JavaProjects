@@ -3,6 +3,17 @@ import java.util.Collections;
 import java.util.Scanner;
 public class DeckOfCards {
 
+    protected static ArrayList<Card> cards;
+    /**
+     * This function will create cards
+     *
+     * @params "none"
+     */
+    protected void createCards(){
+        cards = genCards();
+        System.out.println("Cards are already created!");
+    }
+
     /**
      * "This a temporary function"
      * This function will
@@ -38,22 +49,25 @@ public class DeckOfCards {
      */
 
     public static void menu(){
-        System.out.print("1. Deal\n" +
-                "2. Shuffle\n" +
-                "3. Display\n" +
-                "4. Exit\n" +
-                "Please choose an action: ");
+        String menu = "[1] Deal\n" +
+                "[2] Shuffle\n" +
+                "[3] Display\n" +
+                "[4] create cards\n"+
+                "[5] Exit\n";
+
+
+        System.out.print(menu += "Please enter your action: ");
     }
 
     /**
      * process the user action
      * also call the functions
      * regarding the users action
-     * @param userAction, cards
+     * @param userAction
      * @return bol
      */
 
-    public static boolean processAction (String userAction, ArrayList<Card> cards )
+    public boolean processAction (String userAction )
     {
         boolean end = false;
         userAction = userAction.toLowerCase();
@@ -78,6 +92,12 @@ public class DeckOfCards {
                 end = false;
                 break;
             case "4":
+            case "create":
+                //create another deck of cards
+                createCards();
+                end = false;
+                break;
+            case "5":
             case "exit":
                 //break the while loop
                 System.out.println("Goodbye, Thank you for playing!");
