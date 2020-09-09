@@ -2,6 +2,8 @@ package com.example.hellodroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+//refers to this link
+//https://www.jetbrains.com/help/idea/create-your-first-android-application.html#build-run-Android-application
 
 public class MainActivity extends AppCompatActivity {
 

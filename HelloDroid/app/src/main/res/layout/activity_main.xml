@@ -5,17 +5,27 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:id="@+id/TextView" android:padding="10dp" android:paddingLeft="10dp"
+        android:paddingTop="10dp" android:paddingRight="10dp" android:paddingBottom="10dp">
+    <TextView
+            android:text="@string/textveiw"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="207dp"
+            android:layout_height="55dp" android:id="@+id/textView"
+            tools:text="Hello I'm a Droid"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="176dp" android:layout_marginStart="176dp" android:layout_marginEnd="147dp"
+            android:layout_marginRight="147dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="460dp" android:textSize="24sp"
+            app:layout_constraintHorizontal_bias="0.543"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars" android:id="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="225dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="491dp"
-            app:layout_constraintVertical_bias="0.0"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView" tools:layout_editor_absoluteY="425dp"
-            tools:layout_editor_absoluteX="169dp"/>
+            android:layout_height="wrap_content" app:srcCompat="@drawable/android_os" android:id="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/android_os_png"
+            android:layout_marginTop="243dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="278dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="102dp" android:layout_marginStart="102dp" android:layout_marginEnd="99dp"
+            android:layout_marginRight="99dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.6"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
