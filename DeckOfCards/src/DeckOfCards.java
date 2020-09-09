@@ -152,7 +152,15 @@ public class DeckOfCards {
             System.out.println("\n\nWARNING: The Deck of Card is Empty!\n\n");
             return cards;
         }
-        Collections.shuffle(cards);
+//        Collections.shuffle(cards);
+
+        for(int i = 0;i < cards.size(); i++){
+            int ndx = (int) (Math.random()* cards.size());
+            Card temp = cards.get(ndx);
+            cards.set(ndx, cards.get(i));
+            cards.set(i,temp);
+        }
+
         System.out.println("\n\nCards is already shuffled!\n\n");
         return cards;
 
@@ -168,9 +176,10 @@ public class DeckOfCards {
             System.out.println("\n\nWARNING: The amount of deal should not be \ngreater than the number of cards");
             return;
         }
-        for(int ctr = 0; ctr < 52; ctr++){
-            System.out.print(cards.get(ctr).getCard()+" ");
-            cards.remove(cards.get(ctr));
+        while(dealVal != 0){
+            System.out.println(cards.get(0).getCard());
+            cards.remove(cards.get(0));
+            dealVal--;
         }
         System.out.println("\n");
     }
