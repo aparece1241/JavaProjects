@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-public class DeckOfCards {
 
+
+public class DeckOfCards {
+    
     Scanner input = new Scanner(System.in);
     protected static ArrayList<Card> cards = new ArrayList<Card>();
     /**
@@ -183,4 +185,5 @@ public class DeckOfCards {
         }
         System.out.println("\n");
     }
+
 }
