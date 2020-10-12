@@ -2,25 +2,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * @author aparece1241
  */
 public class App {
     Scanner input = new Scanner(System.in);
-    static ArrayList<CardCatalog> catalog_cards = new ArrayList<>();
+    static ArrayList<CardCatalog> catalog_cards = new ArrayList<CardCatalog>();
 
     /**
      * This will display the
      * menu
      */
     public void displayMenu() {
-        System.out.print("Libray Card Catalog System\n" +
+        System.out.print("Library Card Catalog System\n" +
                 "1.Add Card Catalog\n" +
                 "2.Edit Card Catalog\n" +
                 "3.Remove Card Catalog\n" +
                 "4.View Card Catalog\n" +
-                "5.Exit\n" +
-                "6.Generate fake values (for dev only!)\n");
+                "5.Exit\n");
     }
 
     /**
@@ -30,11 +31,14 @@ public class App {
      */
     public void generateValues() {
         System.out.print("How many?: ");
-        int size = input.nextInt();
+        String sizeS = input.nextLine();
+        int size = parseInt(sizeS);
         if(size < 0){
             System.out.println("Invalid size!");
             return;
         }
+
+
         for(int ctr = 0; ctr < size;ctr++){
             CardCatalog card = new CardCatalog();
             card.setCardId(Integer.toString(ctr));
@@ -151,34 +155,39 @@ public class App {
             System.out.println("There is no Card Catalogues listed!");
             return;
         }
-        System.out.print("Would you like to:\n1. Search?\n2.View All?\nEnter Choice: ");
-
-        switch (choice()) {
-            case "1":
-            case "search":
-                System.out.print("Enter Card Catalog Id: ");
-                String cardId = choice();
-                CardCatalog returnedCard = searchCard(cardId);
-
-                System.out.println(("unknown".equals(returnedCard.getCardId()))?String.format("\nThe " +
-                                "id %s doesn't exist!", cardId):String.format("\n\nCard id: %s " +
-                                "\nBook title: %s\nBook author: %s\nYear Published: %s\nPublisher:" +
-                                " %s\n", returnedCard.getCardId(), returnedCard.getBookTitle(), returnedCard.getBookAuthor(),
-                                returnedCard.getYearPublished(), returnedCard.getPublisher()));
+        while(true) {
+            System.out.print("Would you like to:\n1.View One?\n2.View All?\n3.Back\nEnter Choice: ");
+            String input = choice();
+            if(input.equals("3")){
                 break;
-            case "2":
-            case "all":
-                Collections.shuffle(catalog_cards);
-                Collections.sort(catalog_cards);
-                for ( CardCatalog card: catalog_cards) {
-                    System.out.printf("\nCard id: %s \nBook title: %s\n" +
-                            "Book author: %s\nYear Published: %s\nPublisher: %s\n",
-                            card.getCardId(),card.getBookTitle(),card.getBookAuthor(),
-                            card.getYearPublished(),card.getPublisher());
-                }
-                break;
-            default:
-                System.out.println("Invalid Choice!");
+            }
+            switch (input) {
+                case "1":
+                case "view one":
+                    System.out.print("Enter Card Catalog Id: ");
+                    String cardId = choice();
+                    CardCatalog returnedCard = searchCard(cardId);
+
+                    System.out.println(("unknown".equals(returnedCard.getCardId())) ? String.format("\nThe " +
+                            "id %s doesn't exist!", cardId) : String.format("\n\nCard id: %s " +
+                                    "\nBook title: %s\nBook author: %s\nYear Published: %s\nPublisher:" +
+                                    " %s\n", returnedCard.getCardId(), returnedCard.getBookTitle(), returnedCard.getBookAuthor(),
+                            returnedCard.getYearPublished(), returnedCard.getPublisher()));
+                    break;
+                case "2":
+                case "view all":
+                    Collections.sort(catalog_cards);
+                    for (CardCatalog card : catalog_cards) {
+                        System.out.printf("\nCard id: %s \nBook title: %s\n" +
+                                        "Book author: %s\nYear Published: %s\nPublisher: %s\n",
+                                card.getCardId(), card.getBookTitle(), card.getBookAuthor(),
+                                card.getYearPublished(), card.getPublisher());
+                    }
+                    break;
+
+                default:
+                    System.out.println("\nInvalid Choice!\n");
+            }
         }
         System.out.println("\n Command successfully executes\n");
 
@@ -202,6 +211,7 @@ public class App {
         card.setPublisher(input.nextLine());
 
         catalog_cards.add(card);
+        Collections.sort(catalog_cards);
         System.out.println("\nSuccessfully added!\n");
     }
 
