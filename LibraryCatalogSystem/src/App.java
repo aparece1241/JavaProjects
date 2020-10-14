@@ -7,6 +7,7 @@ import static java.lang.Integer.parseInt;
 /**
  * @author aparece1241
  */
+
 public class App {
     Scanner input = new Scanner(System.in);
     static ArrayList<CardCatalog> catalog_cards = new ArrayList<CardCatalog>();
@@ -24,34 +25,34 @@ public class App {
                 "5.Exit\n");
     }
 
-    /**
-     * Generates fake values
-     * Used only for developing process
-     *
-     */
-    public void generateValues() {
-        System.out.print("How many?: ");
-        String sizeS = input.nextLine();
-        int size = parseInt(sizeS);
-        if(size < 0){
-            System.out.println("Invalid size!");
-            return;
-        }
-
-
-        for(int ctr = 0; ctr < size;ctr++){
-            CardCatalog card = new CardCatalog();
-            card.setCardId(Integer.toString(ctr));
-            card.setBookTitle(String.format("Book Title %d",ctr));
-            card.setBookAuthor(String.format("Book Author %d",ctr));
-            card.setYearPublished(String.format("Year Published %d",ctr));
-            card.setPublisher(String.format("Publisher %d",ctr));
-
-            catalog_cards.add(card);
-        }
-
-        System.out.println("\n Successfully create "+size+" fake values!\n");
-    }
+//    /**
+//     * Generates fake values
+//     * Used only for developing process
+//     *
+//     */
+//    public void generateValues() {
+//        System.out.print("How many?: ");
+//        String sizeS = input.nextLine();
+//        int size = parseInt(sizeS);
+//        if(size < 0){
+//            System.out.println("Invalid size!");
+//            return;
+//        }
+//
+//
+//        for(int ctr = 0; ctr < size;ctr++){
+//            CardCatalog card = new CardCatalog();
+//            card.setCardId(Integer.toString(ctr));
+//            card.setBookTitle(String.format("Book Title %d",ctr));
+//            card.setBookAuthor(String.format("Book Author %d",ctr));
+//            card.setYearPublished(String.format("Year Published %d",ctr));
+//            card.setPublisher(String.format("Publisher %d",ctr));
+//
+//            catalog_cards.add(card);
+//        }
+//
+//        System.out.println("\n Successfully create "+size+" fake values!\n");
+//    }
 
     /**
      *
@@ -100,7 +101,7 @@ public class App {
             System.out.printf("\nThe id %s doesn't exist!", cardId);//displays the id that doesn't exists
         }else {
             String [][] keys = {
-                    {"Card id(current value: %s): ",returnedCard.getCardId()},
+//                    {"Card id(current value: %s): ",returnedCard.getCardId()},
                     {"Book Title(current value: %s): ",returnedCard.getBookTitle()},
                     {"Book Author(current value: %s): ",returnedCard.getBookAuthor()},
                     {"Year Published(current value: %s): ",returnedCard.getYearPublished()},
@@ -112,15 +113,14 @@ public class App {
                 String value = input.nextLine();
                 datas[index] = (value.isEmpty())? keys[index][1]: value;
             }
-            returnedCard.setCardId(datas[0]);
-            returnedCard.setBookTitle(datas[1]);
-            returnedCard.setBookAuthor(datas[2]);
-            returnedCard.setYearPublished(datas[3]);
-            returnedCard.setPublisher(datas[4]);
+//            returnedCard.setCardId(datas[0]);
+            returnedCard.setBookTitle(datas[0]);
+            returnedCard.setBookAuthor(datas[1]);
+            returnedCard.setYearPublished(datas[2]);
+            returnedCard.setPublisher(datas[3]);
             catalog_cards.set(catalog_cards.indexOf(returnedCard),returnedCard);
             System.out.println("\n Updated successfully!\n");
         }
-
         System.out.println("\n Command run successfully\n");
     }
 
@@ -132,6 +132,7 @@ public class App {
             System.out.println("There is no Card Catalogues listed!");
             return;
         }
+
         System.out.print("Enter Card Catalog Id: ");
         String cardId = choice();
         CardCatalog returnedCard = searchCard(cardId);
@@ -179,7 +180,7 @@ public class App {
                     Collections.sort(catalog_cards);
                     for (CardCatalog card : catalog_cards) {
                         System.out.printf("\nCard id: %s \nBook title: %s\n" +
-                                        "Book author: %s\nYear Published: %s\nPublisher: %s\n",
+                                "Book author: %s\nYear Published: %s\nPublisher: %s\n",
                                 card.getCardId(), card.getBookTitle(), card.getBookAuthor(),
                                 card.getYearPublished(), card.getPublisher());
                     }
@@ -190,17 +191,27 @@ public class App {
             }
         }
         System.out.println("\n Command successfully executes\n");
-
     }
 
     /**
      * This function will add a catalog card
      */
-
     public void addCatalog() {
         CardCatalog card = new CardCatalog();
+
         System.out.print("Card id: ");
-        card.setCardId(input.nextLine());
+        String cardID = input.nextLine();
+
+        if(!catalog_cards.isEmpty()){
+            for(CardCatalog cardCatalog: catalog_cards){
+                if(cardCatalog.getCardId().equals(cardID)){
+                    System.out.println("The card id already exists!\nCard id:");
+                    cardID = input.nextLine();
+                }
+            }
+        }
+
+        card.setCardId(cardID);
         System.out.print("Book Title: ");
         card.setBookTitle(input.nextLine());
         System.out.print("Book Author: ");
@@ -214,6 +225,4 @@ public class App {
         Collections.sort(catalog_cards);
         System.out.println("\nSuccessfully added!\n");
     }
-
-
 }

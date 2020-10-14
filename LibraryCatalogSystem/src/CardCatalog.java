@@ -7,8 +7,7 @@ public class CardCatalog implements Comparable<CardCatalog>{
     private String bookAuthor;
     private String yearPublished;
     private String publisher;
-
-
+    
     public String getPublisher() {
         return publisher;
     }

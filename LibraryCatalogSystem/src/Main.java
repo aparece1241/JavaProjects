@@ -9,7 +9,6 @@ public class Main {
             app.displayMenu();
             System.out.print("Enter Your Choice: ");
             switch (app.choice()) {
-
                 case "1": // case one adds
                 case "add":
                     app.addCatalog();
@@ -30,9 +29,6 @@ public class Main {
                 case "exit":
                     System.out.println("Thank You, Goodbye!");
                     System.exit(1);
-                    break;
-                case "6": //
-                    app.generateValues();
                     break;
                 default:// if the choices is not in the given
                     System.out.println("Invalid Choice!");
